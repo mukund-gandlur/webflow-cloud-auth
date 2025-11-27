@@ -8,28 +8,26 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { getMemberstack } from "@/lib/memberstack"
+import { useSessionStorage } from "@/hooks/use-session-storage"
 
 export function ResetPasswordForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
   const router = useRouter()
-  const [email, setEmail] = useState("")
   const [code, setCode] = useState("")
   const [newPassword, setNewPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
+  const [email, , removeResetEmail] = useSessionStorage<string>("resetEmail", "")
 
   useEffect(() => {
-    // Get email from sessionStorage
-    const savedEmail = sessionStorage.getItem("resetEmail")
-    if (savedEmail) {
-      setEmail(savedEmail)
-    } else {
-      // If no email found, redirect to forgot password
+    // Only redirect if email is empty (user didn't come from forgot-password flow)
+    // This check happens after component mounts and sessionStorage is read
+    if (email === "") {
       router.push("/forgot-password")
     }
-  }, [router])
+  }, [email, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -51,12 +49,13 @@ export function ResetPasswordForm({
       })
 
       // Clear the stored email
-      sessionStorage.removeItem("resetEmail")
+      removeResetEmail()
 
       // Redirect to dashboard (user is now logged in)
       router.push("/dashboard")
-    } catch (err: any) {
-      setError(err.message || "Failed to reset password. Please check your code and try again.")
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Failed to reset password. Please check your code and try again."
+      setError(errorMessage)
     } finally {
       setIsLoading(false)
     }
@@ -71,7 +70,9 @@ export function ResetPasswordForm({
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Enter reset code</h1>
         <p className="text-balance text-sm text-muted-foreground">
-          Enter the 6-digit code we sent to {email} and your new password
+          {email 
+            ? `Enter the 6-digit code we sent to ${email} and your new password`
+            : "Loading..."}
         </p>
       </div>
       {error && (
@@ -109,7 +110,7 @@ export function ResetPasswordForm({
         </Button>
       </div>
       <div className="text-center text-sm">
-        Didn't receive a code?{" "}
+        Didn&apos;t receive a code?{" "}
         <Link href="/forgot-password" className="underline underline-offset-4">
           Send again
         </Link>

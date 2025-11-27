@@ -170,7 +170,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             avatar: member.profileImage || "",
           })
         }
-      } catch (error) {
+      } catch {
         // Silently handle errors - user data will remain empty
       }
     }

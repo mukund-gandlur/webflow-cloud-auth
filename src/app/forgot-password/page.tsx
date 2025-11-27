@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { GalleryVerticalEnd } from "lucide-react"
 
 import { ForgotPasswordForm } from "@/components/forgot-password-form"
@@ -21,10 +22,11 @@ export default function ForgotPasswordPage() {
         </div>
       </div>
       <div className="relative hidden bg-muted lg:block">
-        <img
-          src="/app/placeholder.svg"
+        <Image
+          src="/placeholder.svg"
           alt="Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          fill
+          className="object-cover dark:brightness-[0.2] dark:grayscale"
         />
       </div>
     </div>

@@ -33,8 +33,9 @@ export function LoginForm({
 
       // Redirect to dashboard after successful login
       router.push("/dashboard")
-    } catch (err: any) {
-      setError(err.message || "Failed to login. Please check your credentials.")
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Failed to login. Please check your credentials."
+      setError(errorMessage)
     } finally {
       setIsLoading(false)
     }
@@ -52,8 +53,9 @@ export function LoginForm({
 
       // Redirect to dashboard after successful login
       router.push("/dashboard")
-    } catch (err: any) {
-      setError(err.message || "Failed to login with Google. Please try again.")
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Failed to login with Google. Please try again."
+      setError(errorMessage)
     } finally {
       setIsLoading(false)
     }

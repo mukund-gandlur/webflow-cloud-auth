@@ -1,12 +1,10 @@
-# Webflow Cloud + Memberstack Authentication Boilerplate
+# React + Next.js + shadcn/ui Authentication Boilerplate
 
-A production-ready Next.js boilerplate with complete Memberstack authentication (login, signup, password reset, protected routes) pre-configured for Webflow Cloud deployment.
+A modern, production-ready authentication boilerplate built with **React 19**, **Next.js 15** (App Router), and **shadcn/ui** components. Features complete Memberstack authentication (login, signup, password reset, protected routes) with a beautiful, accessible UI.
 
 ## Prerequisites
 
-- [Webflow account](https://webflow.com/dashboard/signup)
 - [Memberstack account](https://memberstack.com/)
-- [GitHub account](https://github.com/signup)
 - Node.js 20.0.0+ and npm
 
 ## Setup
@@ -53,43 +51,50 @@ MEMBERSTACK_SECRET_KEY="sk_sb_xxxxxxxxxxxxxx"
 npm run dev
 ```
 
-Open [http://localhost:3000/app](http://localhost:3000/app) and test the authentication features.
+Open [http://localhost:3000](http://localhost:3000) and test the authentication features.
 
-### 5. Deploy to Webflow Cloud
+### 5. Deploy
 
-1. In your Webflow site, go to **Site Settings** > **Webflow Cloud**
-2. Click **Login to GitHub** and authorize
-3. Click **Install GitHub App** and grant access to your repository
-4. Click **Create New Project**:
-   - **Project Name:** Whatever you want
-   - **GitHub Repository:** Select your repository
-   - Click **Create Project**
-5. Click **Create Environment**:
-   - **Branch:** `main`
-   - **Mount Path:** `/app`
-   - Click **Create Environment**
-6. Add your environment variables:
-   - Click **Environment Variables** tab
-   - Add `NEXT_PUBLIC_MEMBERSTACK_PUBLIC_KEY` with your public key
-   - Add `MEMBERSTACK_SECRET_KEY` with your secret key (mark as secret)
-   - Click **Save**
-7. **Publish your Webflow site** (button in top right of Designer)
-8. Deploy:
-   - Option A: Run `webflow cloud deploy` in your terminal
-   - Option B: Just push to GitHub and it auto-deploys
+#### Option A: Deploy to Vercel (Recommended)
 
-### 6. View Your App
+1. Push your code to GitHub
+2. Import your repository in [Vercel](https://vercel.com)
+3. Add environment variables:
+   - `NEXT_PUBLIC_MEMBERSTACK_PUBLIC_KEY`
+   - `MEMBERSTACK_SECRET_KEY`
+4. Deploy!
 
-Go to `https://your-site.webflow.io/app` to see your live app!
+#### Option B: Deploy to Other Platforms
+
+- **Netlify**: Connect your GitHub repo and deploy
+- **Railway**: Connect your repo and deploy
+- **AWS Amplify**: Connect your repo and deploy
+- **Any platform** that supports Next.js
+
+> **Note**: If you want to deploy to Webflow Cloud, you'll need to set `basePath: "/app"` in `next.config.ts` and configure it in Webflow Cloud settings.
+
+## Tech Stack
+
+- **React 19** - Latest React with modern hooks and patterns
+- **Next.js 15** - App Router with Server Components
+- **shadcn/ui** - Beautiful, accessible component library
+- **TypeScript** - Full type safety
+- **Tailwind CSS** - Utility-first CSS framework
+- **Memberstack** - Authentication and user management
 
 ## What's Included
 
-- Login and signup pages with validation
-- Password reset flow (forgot password + reset)
-- Protected account page with auth guard
-- Automatic redirects for unauthenticated users
-- Tailwind CSS + shadcn/ui components
-- TypeScript
+- ✅ **React 19** with modern hooks and patterns
+- ✅ **Next.js 15 App Router** with Server/Client component separation
+- ✅ **shadcn/ui components** - Button, Input, Card, Form, Dialog, and more
+- ✅ Login and signup pages with validation
+- ✅ Password reset flow (forgot password + reset)
+- ✅ Protected account page with auth guard
+- ✅ Automatic redirects for unauthenticated users
+- ✅ SSR-safe sessionStorage hooks
+- ✅ Server-side redirects
+- ✅ Toast notifications (Sonner)
+- ✅ Responsive design with Tailwind CSS
 
 ## Scripts
 
@@ -97,29 +102,31 @@ Go to `https://your-site.webflow.io/app` to see your live app!
 npm run dev      # Local development
 npm run build    # Build for production
 npm run preview  # Test production build locally
-npm run deploy   # Deploy to Webflow Cloud
+npm run deploy   # Generic deploy command (configure for your platform)
 ```
 
 ## Troubleshooting
 
-**"404 Not Found" when accessing /app**
-- Make sure you published your Webflow site after creating the environment
-
 **Authentication not working**
-- Verify both Memberstack environment variables are set in Webflow Cloud
+
+- Verify both Memberstack environment variables are set in your deployment platform
 - Make sure you're using keys from the same Memberstack app
 - Check that your public key starts with `NEXT_PUBLIC_`
 
-**Deployment not starting after Git push**
-- Go to Webflow Cloud settings and verify GitHub App has repo access
-- Try `webflow cloud deploy` manually
+**Build errors**
+
+- Make sure all environment variables are set in your deployment platform
+- Check that Node.js version matches (20.0.0+)
 
 ## Learn More
 
-- [Webflow Cloud Docs](https://developers.webflow.com/webflow-cloud)
-- [Memberstack Docs](https://docs.memberstack.com/)
+- [React Docs](https://react.dev/)
 - [Next.js Docs](https://nextjs.org/docs)
+- [shadcn/ui Components](https://ui.shadcn.com/)
+- [Memberstack Docs](https://docs.memberstack.com/)
+- [Tailwind CSS Docs](https://tailwindcss.com/docs)
+- [Vercel Deployment Guide](https://vercel.com/docs)
 
 ---
 
-Made with Webflow Cloud, Memberstack, and Next.js
+Built with **React 19**, **Next.js 15**, **shadcn/ui**, and **Memberstack**

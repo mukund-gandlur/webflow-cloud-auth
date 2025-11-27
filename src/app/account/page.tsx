@@ -40,7 +40,7 @@ export default function AccountPage() {
           setHasPassword(member.auth?.hasPassword || false)
           setAuthProviders(member.auth?.providers || [])
         }
-      } catch (error) {
+      } catch {
         setMessage({ type: "error", text: "Failed to load profile data" })
       } finally {
         setIsLoading(false)
@@ -75,8 +75,9 @@ export default function AccountPage() {
       }
 
       setMessage({ type: "success", text: "Profile updated successfully!" })
-    } catch (error: any) {
-      setMessage({ type: "error", text: error.message || "Failed to update profile. Please try again." })
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to update profile. Please try again."
+      setMessage({ type: "error", text: errorMessage })
     } finally {
       setIsSaving(false)
     }
@@ -108,9 +109,9 @@ export default function AccountPage() {
 
       setCurrentPassword("")
       setNewPassword("")
-    } catch (error: any) {
+    } catch (error) {
       // Handle authentication errors gracefully without console.error
-      const errorMessage = error.message || error.code || "Failed to update password"
+      const errorMessage = error instanceof Error ? (error.message || "Failed to update password") : "Failed to update password"
       setMessage({
         type: "error",
         text: errorMessage.includes("password") || errorMessage.includes("auth")
@@ -217,10 +218,10 @@ export default function AccountPage() {
                       </div>
                       <div className="rounded-lg bg-muted p-4">
                         <p className="text-sm">
-                          You're using a social provider to sign in. Your password is managed by your social login provider, so you cannot change it here.
+                          You&apos;re using a social provider to sign in. Your password is managed by your social login provider, so you cannot change it here.
                         </p>
                         <p className="text-sm mt-2 text-muted-foreground">
-                          To manage your password, please visit your social provider's account settings.
+                          To manage your password, please visit your social provider&apos;s account settings.
                         </p>
                       </div>
                     </div>
